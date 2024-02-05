@@ -1,0 +1,53 @@
+{
+  "products": [
+    {
+      "title": "Футболка",
+      "description": "Найк",
+      "price": 200,
+      "image": "https://akn-ss.b-cdn.net/products/2022/01/20/384148/33db49e0-efe2-49cc-a9c8-c626fd4c58d3_size1400x1400_quality100_cropCenter.jpg",
+      "id": 1
+    },
+    {
+      "title": "Шорты",
+      "description": "Найк",
+      "price": 200,
+      "image": "https://akn-ss.b-cdn.net/products/2022/01/20/384148/33db49e0-efe2-49cc-a9c8-c626fd4c58d3_size1400x1400_quality100_cropCenter.jpg",
+      "id": 2
+    },
+    {
+      "title": "Футболка",
+      "description": "Найк",
+      "price": 200,
+      "image": "https://akn-ss.b-cdn.net/products/2022/01/20/384148/33db49e0-efe2-49cc-a9c8-c626fd4c58d3_size1400x1400_quality100_cropCenter.jpg",
+      "id": 3
+    },
+    {
+      "title": "Футболка",
+      "description": "Найк",
+      "price": 200,
+      "image": "https://akn-ss.b-cdn.net/products/2022/01/20/384148/33db49e0-efe2-49cc-a9c8-c626fd4c58d3_size1400x1400_quality100_cropCenter.jpg",
+      "id": 4
+    },
+    {
+      "title": "Футболка",
+      "description": "Найк",
+      "price": 200,
+      "image": "https://akn-ss.b-cdn.net/products/2022/01/20/384148/33db49e0-efe2-49cc-a9c8-c626fd4c58d3_size1400x1400_quality100_cropCenter.jpg",
+      "id": 5
+    }
+  ],
+  "categories": [
+    {
+      "name": "худи",
+      "id": 1
+    },
+    {
+      "name": "Кепки",
+      "id": 2
+    },
+    {
+      "name": "Шапки",
+      "id": 3
+    }
+  ]
+}
