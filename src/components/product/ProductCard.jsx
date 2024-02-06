@@ -14,9 +14,11 @@ import React, { useState } from "react";
 import Detail from "./Detail";
 import { useProducts } from "../context/ProductContextProvider";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContextProvider";
 
 const ProductCard = ({ elem }) => {
   const { deleteProduct } = useProducts();
+  const { addProductToCart } = useCart();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
@@ -63,7 +65,7 @@ const ProductCard = ({ elem }) => {
         >
           Edit
         </Button>
-        <IconButton>
+        <IconButton onClick={() => addProductToCart(elem)}>
           <AddShoppingCart />
         </IconButton>
       </CardContent>
