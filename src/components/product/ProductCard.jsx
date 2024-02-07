@@ -18,7 +18,7 @@ import { useCart } from "../context/CartContextProvider";
 
 const ProductCard = ({ elem }) => {
   const { deleteProduct } = useProducts();
-  const { addProductToCart } = useCart();
+  const { addProductToCart, checkProductInCart } = useCart();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
@@ -48,6 +48,9 @@ const ProductCard = ({ elem }) => {
         <Typography color="black" fontSize="24px" fontWeight={700}>
           {elem.description}
         </Typography>
+        <Typography color="black" fontSize="24px" fontWeight={700}>
+          {elem.category}
+        </Typography>
 
         <Button
           onClick={() => deleteProduct(elem.id)}
@@ -65,7 +68,13 @@ const ProductCard = ({ elem }) => {
         >
           Edit
         </Button>
-        <IconButton onClick={() => addProductToCart(elem)}>
+        <IconButton
+          sx={{
+            backgroundColor: checkProductInCart(elem.id) ? "black" : "",
+            color: checkProductInCart(elem.id) ? "white" : "",
+          }}
+          onClick={() => addProductToCart(elem)}
+        >
           <AddShoppingCart />
         </IconButton>
       </CardContent>

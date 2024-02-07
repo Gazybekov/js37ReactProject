@@ -1,11 +1,15 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { ACTIONS } from "../../helpers/const";
-import { calcTotalPrice, getLocalStorage } from "../../helpers/functions";
+import {
+  calcTotalPrice,
+  getLocalStorage,
+  getProductsCountInCart,
+} from "../../helpers/functions";
 const cartContext = createContext();
 export const useCart = () => useContext(cartContext);
 const INIT_STATE = {
   cart: JSON.parse(localStorage.getItem("cart")),
-  cartLength: null,
+  cartLength: getProductsCountInCart(),
 };
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
@@ -44,7 +48,7 @@ const CartContextProvider = ({ children }) => {
   const addProductToCart = (product) => {
     // получаем содержимое из хранилища под ключом cart
     let cart = getLocalStorage();
-    // проверка на существование данных в хранилизе под ключом cart
+    // проверка на существование данных в хранилище под ключом cart
     if (!cart) {
       cart = {
         products: [],
@@ -79,8 +83,21 @@ const CartContextProvider = ({ children }) => {
       payload: cart,
     });
   };
+  // функция для проверки на наличие товара в корзине
+  const checkProductInCart = (id) => {
+    let cart = getLocalStorage();
+    if (cart) {
+      let newCart = cart.products.filter((elem) => elem.item.id == id);
+      return newCart.length > 0 ? true : false;
+    }
+  };
+
   const values = {
     addProductToCart,
+    cart: state.cart,
+    getCart,
+    checkProductInCart,
+    getProductsCountInCart,
   };
   return <cartContext.Provider value={values}>{children}</cartContext.Provider>;
 };
