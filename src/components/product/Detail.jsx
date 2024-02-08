@@ -1,5 +1,6 @@
-import { Box, Modal } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
 import React from "react";
+import { useCart } from "../context/CartContextProvider";
 
 const Detail = (props) => {
   const style = {
@@ -14,7 +15,7 @@ const Detail = (props) => {
     p: 4,
   };
   const { elem, open, handleClose } = props;
-
+  const { checkProductInCart, addProductToCart } = useCart();
   return (
     <Modal
       open={open}
@@ -30,6 +31,15 @@ const Detail = (props) => {
           <h1>{elem.title}</h1>
           <p>{elem.description}</p>
           <p>{elem.price}</p>
+        </div>
+        <div style={{ marginTop: "auto" }}>
+          {checkProductInCart(elem.id) ? (
+            <Button>Alredy in cart</Button>
+          ) : (
+            <Button onClick={() => addProductToCart(elem)}>
+              Buy for {elem.price}
+            </Button>
+          )}
         </div>
       </Box>
     </Modal>

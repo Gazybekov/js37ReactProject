@@ -12,11 +12,16 @@ import React, { useEffect } from "react";
 import { useCart } from "../context/CartContextProvider";
 
 const Cart = () => {
-  const { cart, getCart } = useCart();
+  const { cart, getCart, changeProductCount, deleteProductFromCart } =
+    useCart();
   console.log(cart.products);
   useEffect(() => {
     getCart();
   }, []);
+  const cartCliner = () => {
+    localStorage.removeItem("cart");
+    getCart();
+  };
   console.log(cart);
   return (
     <TableContainer component={Paper}>
@@ -48,16 +53,27 @@ const Cart = () => {
               <TableCell align="right">{elem.item.category}</TableCell>
               <TableCell align="right">{elem.item.price}</TableCell>
               <TableCell align="right">
-                <input type="number" min={1} max={20} value={elem.count} />
+                <input
+                  onChange={(e) => {
+                    changeProductCount(elem.item.id, e.target.value);
+                  }}
+                  type="number"
+                  min={1}
+                  max={20}
+                  defaultValue={elem.count}
+                />
               </TableCell>
               <TableCell align="right">{elem.subPrice}</TableCell>
               <TableCell align="right">
-                <Button>DELETE</Button>
+                <Button onClick={() => deleteProductFromCart(elem.item.id)}>
+                  DELETE
+                </Button>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      <Button onClick={cartCliner}>BUY NOW FOR {cart.totalPrice}</Button>
     </TableContainer>
   );
 };
