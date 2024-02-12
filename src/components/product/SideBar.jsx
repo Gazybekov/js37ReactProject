@@ -21,6 +21,7 @@ const SideBar = () => {
       q: search,
     });
   }, [search]);
+  
   useEffect(() => {
     getCategories();
   }, []);

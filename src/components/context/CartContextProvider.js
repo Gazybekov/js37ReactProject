@@ -42,7 +42,6 @@ const CartContextProvider = ({ children }) => {
         totalPrice: 0,
       };
     }
-
     // обновляем состояние
     dispatch({
       type: ACTIONS.GET_CART,
