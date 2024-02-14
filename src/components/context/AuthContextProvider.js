@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import fire from "../../fire";
 import { useNavigate } from "react-router-dom";
 export const authContext = createContext();
@@ -10,6 +10,7 @@ const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [hasAccount, setHasAccount] = useState("");
   const navigate = useNavigate();
   const clearInputs = () => {
     setEmail("");
@@ -63,12 +64,27 @@ const AuthContextProvider = ({ children }) => {
   const handleLogOut = () => {
     fire.auth().signOut();
   };
+  const authListener = () => {
+    fire.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        setUser(user);
+      } else {
+        setUser("");
+      }
+    });
+  };
+  useEffect(() => {
+    authListener();
+  }, []);
   const values = {
     user,
     email,
     password,
     emailError,
     passwordError,
+    hasAccount,
+    setHasAccount,
     setEmail,
     setPassword,
     setUser,

@@ -15,6 +15,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge, MenuItem } from "@mui/material";
 import { useCart } from "../context/CartContextProvider";
 import { useEffect } from "react";
+import { useAuth } from "../context/AuthContextProvider";
+import { ADMIN } from "../../helpers/const";
 const pages = [
   { id: 1, title: "Products", link: "/products" },
   { id: 2, title: "About", link: "/about" },
@@ -28,6 +30,7 @@ function Navbar() {
   useEffect(() => {
     setBadgeCount(getProductsCountInCart());
   }, [addProductToCart]);
+  const { user, handleLogOut } = useAuth();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -102,13 +105,23 @@ function Navbar() {
           </Box>
           {pages.map((elem) => (
             <Link key={elem.id} to={elem.link}>
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem>
                 <Typography sx={{ color: "white" }} textAlign={"center"}>
                   {elem.title}
                 </Typography>
               </MenuItem>
             </Link>
           ))}
+          {user.email === ADMIN ? (
+            <Link to={"/admin"}>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                sx={{ color: "white", display: "block" }}
+              >
+                <Typography textAlign="center">ADMIN</Typography>
+              </MenuItem>
+            </Link>
+          ) : null}
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -129,7 +142,9 @@ function Navbar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
-          <Typography sx={{ color: "white" }}></Typography>
+          <Typography sx={{ color: "white" }}>
+            {user ? `Hello, ${user.email}` : `Hello, Guest`}
+          </Typography>
           <Link to={"/cart"}>
             <Badge badgeContent={badgeCount} color="success">
               <ShoppingCartIcon sx={{ color: "white" }} />
@@ -138,7 +153,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user.email} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -156,7 +171,19 @@ function Navbar() {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-            ></Menu>
+            >
+              {user ? (
+                <MenuItem onClick={() => handleLogOut()}>
+                  <Typography>Logout</Typography>
+                </MenuItem>
+              ) : (
+                <Link to={"/auth"}>
+                  <MenuItem>
+                    <Typography textAlign="center">Login</Typography>
+                  </MenuItem>
+                </Link>
+              )}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>
