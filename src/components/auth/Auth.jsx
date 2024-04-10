@@ -4,13 +4,17 @@ import {
   Button,
   Container,
   Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "../context/AuthContextProvider";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Copyright } from "@mui/icons-material";
+import { Copyright, Visibility, VisibilityOff } from "@mui/icons-material";
 const Auth = () => {
   const {
     user,
@@ -35,6 +39,14 @@ const Auth = () => {
     console.log(data);
   };
   console.log(emailError, passwordError);
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -65,19 +77,33 @@ const Auth = () => {
             id="email"
             margin="normal"
           />
-          <TextField
-            label="Password"
+          <InputLabel htmlFor="outlined-adornment-password">
+            Password
+          </InputLabel>
+          <OutlinedInput
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+            id="outlined-adornment-password"
             helperText={passwordError}
             fullWidth
-            margin="normal"
             required
-            name="password"
-            id="password"
-            type="password"
-            autoComplete="current-password"
+            type={showPassword ? "text" : "password"}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
           />
+
           {hasAccount ? (
             <Button
               type="submit"

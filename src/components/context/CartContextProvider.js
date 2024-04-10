@@ -89,6 +89,7 @@ const CartContextProvider = ({ children }) => {
       payload: cart,
     });
   };
+
   // функция для проверки на наличие товара в корзине
   const checkProductInCart = (id) => {
     let cart = getLocalStorage();

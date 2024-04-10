@@ -5,7 +5,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { WidthFull } from "@mui/icons-material";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 
@@ -39,10 +38,10 @@ export default function TopSelling() {
                 "url(<path-to-image>), lightgray 50% / cover no-repeat",
               borderRadius: 4,
             }}
-            image="/static/images/cards/contemplative-reptile.jpg"
+            image="https://om-saratov.ru/files/pages/113404/1654867891general_pages_09_june_2022_i113404_mujskaya_sportivnaya_odejda_k.jpg"
             title="green iguana"
           />
-          <CardContent sx={{ padding: "20px 5px" }}>
+          <CardContent>
             <Typography
               gutterBottom
               variant="h5"

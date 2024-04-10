@@ -21,11 +21,16 @@ import { ADMIN } from "../../helpers/const";
 const ProductCard = ({ elem }) => {
   const { user } = useAuth();
   const { deleteProduct } = useProducts();
-  const { addProductToCart, checkProductInCart } = useCart();
+  const { addProductToCart, checkProductInCart, deleteProductFromCart } =
+    useCart();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleClick = () => {
+    deleteProduct(elem.id);
+    deleteProductFromCart(elem.id);
+  };
   return (
     <Card
       sx={{
@@ -57,7 +62,7 @@ const ProductCard = ({ elem }) => {
         {user.email === ADMIN ? (
           <>
             <Button
-              onClick={() => deleteProduct(elem.id)}
+              onClick={handleClick}
               color="secondary"
               variant="outlined"
               size="medium"

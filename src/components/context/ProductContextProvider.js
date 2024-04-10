@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { ACTIONS, API, API_CATEGORIES } from "../../helpers/const";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ const INIT_STATE = {
   products: [],
   oneProduct: {},
   categories: [],
+  arr: [],
 };
 const ProductContextProvider = ({ children }) => {
   const navigate = useNavigate();
@@ -99,5 +100,4 @@ const ProductContextProvider = ({ children }) => {
     <productContext.Provider value={values}>{children}</productContext.Provider>
   );
 };
-
 export default ProductContextProvider;

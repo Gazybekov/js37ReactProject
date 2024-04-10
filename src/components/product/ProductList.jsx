@@ -9,11 +9,13 @@ const ProductList = () => {
   //! SEARCH
   const { getProducts, products } = useProducts();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(1);
   useEffect(() => {
+    setPage(1);
     getProducts();
   }, [searchParams]);
+
   //! PAGINATION
-  const [page, setPage] = useState(1);
   const itemPerPage = 3;
   const count = Math.ceil(products.length / itemPerPage);
   console.log(count);
